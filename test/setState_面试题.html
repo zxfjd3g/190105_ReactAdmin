@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>04_component_state</title>
+</head>
+<body>
+
+<div id="example"></div>
+
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+
+<script type="text/babel">
+  class StateTest extends React.Component {
+
+    state = {
+      count: 0,
+    }
+
+    componentDidMount() {
+      this.setState({count: this.state.count + 1})
+      this.setState({count: this.state.count + 1})
+      console.log(this.state.count)
+      this.setState(state => ({count: state.count + 1}))
+      this.setState(state => ({count: state.count + 1}))
+      console.log(this.state.count)
+
+      setTimeout(() => {
+        this.setState({count: this.state.count + 1})
+        console.log(this.state.count)
+        this.setState({count: this.state.count + 1})
+        console.log(this.state.count)
+      }, 0)
+    }
+
+    render() {
+      const count = this.state.count
+      console.log(count)
+      return (
+        <div>
+          <p>{count}</p>
+        </div>
+      )
+    }
+  }
+
+  ReactDOM.render(<StateTest/>, document.getElementById('example')) // 渲染组件标签, 内部会调用组件标签对象的render()虚拟DOM
+
+</script>
+</body>
+</html>
+
