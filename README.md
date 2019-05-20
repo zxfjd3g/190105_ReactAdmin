@@ -302,7 +302,7 @@
         <Route> / <Switch> / <Redirect>
     
     2). 匹配路由的逻辑:
-        默认: 逐层匹配
+        默认: 逐层匹配   <Route path='/product' component={ProductHome}/>
         exact属性: 完全匹配
         
 ## 3. 分页实现技术(2种)
@@ -355,8 +355,8 @@
         history.push('/product/addupdate')
         
 ## 5. ProductDetail组件
-    1). 读取商品数据: location.state.product
-    2). 显示商品信息
+    1). 读取商品数据: this.props.location.state.product
+    2). 显示商品信息: <Card> / List 
     3). 异步显示商品所属分类的名称
         pCategoryId==0 : 异步获取categoryId的分类名称
         pCategoryId!=0: 异步获取 pCategoryId/categoryId的分类名称
@@ -364,15 +364,6 @@
         返回值是promise
         异步得到的是所有promsie的结果的数组
         特点: 一次发多个请求, 只有当所有请求都成功, 才成功, 并得到成功的数据,一旦有一个失败, 整个都失败
-
-
-
-
-
-
-
-
-
 
 
 
