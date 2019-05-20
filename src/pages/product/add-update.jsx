@@ -9,6 +9,7 @@ import {
   Button
 } from 'antd'
 
+import PicturesWall from './pictures-wall'
 import LinkButton from '../../components/link-button'
 import {reqCategorys} from '../../api'
 
@@ -22,6 +23,13 @@ class ProductAddUpdate extends Component {
 
   state = {
     options: [],
+  }
+
+  constructor (props) {
+    super(props)
+
+    // 创建用来保存ref标识的标签对象的容器
+    this.pw = React.createRef()
   }
 
   initOptions = async (categorys) => {
@@ -127,6 +135,9 @@ class ProductAddUpdate extends Component {
     this.props.form.validateFields((error, values) => {
       if (!error) {
         console.log('submit()', values)
+
+        const imgs = this.pw.current.getImgs()
+        console.log('imgs', imgs)
         alert('发送ajax请求')
       }
     })
@@ -148,7 +159,7 @@ class ProductAddUpdate extends Component {
   render() {
 
     const {isUpdate, product} = this
-    const {pCategoryId, categoryId} = product
+    const {pCategoryId, categoryId, imgs} = product
     // 用来接收级联分类ID的数组
     const categoryIds = []
     if(isUpdate) {
@@ -234,7 +245,7 @@ class ProductAddUpdate extends Component {
 
           </Item>
           <Item label="商品图片">
-            <div>商品图片</div>
+            <PicturesWall ref={this.pw} imgs={imgs}/>
           </Item>
           <Item label="商品详情">
             <div>商品详情</div>
@@ -249,3 +260,16 @@ class ProductAddUpdate extends Component {
 }
 
 export default Form.create()(ProductAddUpdate)
+
+
+/*
+1. 子组件调用父组件的方法: 将父组件的方法以函数属性的形式传递给子组件, 子组件就可以调用
+2. 父组件调用子组件的方法: 在父组件中通过ref得到子组件标签对象(也就是组件对象), 调用其方法
+ */
+
+/*
+使用ref
+1. 创建ref容器: thi.pw = React.createRef()
+2. 将ref容器交给需要获取的标签元素: <PictureWall ref={this.pw} />
+3. 通过ref容器读取标签元素: this.pw.current
+ */

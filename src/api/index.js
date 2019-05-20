@@ -59,6 +59,8 @@ export const reqSearchProducts = ({pageNum, pageSize, searchName, searchType}) =
   productDesc: searchName,
 })*/
 
+export const reqDeleteImg = (name) => ajax(BASE + '/manage/img/delete', {name}, 'POST')
+
 
 /*
 json请求的接口请求函数
