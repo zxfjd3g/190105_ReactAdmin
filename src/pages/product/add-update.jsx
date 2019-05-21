@@ -9,6 +9,7 @@ import {
 } from 'antd'
 
 import PicturesWall from './pictures-wall'
+import RichTextEditor from './rich-text-editor'
 import LinkButton from '../../components/link-button'
 import {reqCategorys} from '../../api'
 
@@ -29,6 +30,7 @@ class ProductAddUpdate extends Component {
 
     // 创建用来保存ref标识的标签对象的容器
     this.pw = React.createRef()
+    this.editor = React.createRef()
   }
 
   initOptions = async (categorys) => {
@@ -136,7 +138,8 @@ class ProductAddUpdate extends Component {
         console.log('submit()', values)
 
         const imgs = this.pw.current.getImgs()
-        console.log('imgs', imgs)
+        const detail = this.editor.current.getDetail()
+        console.log('imgs', imgs, detail)
         alert('发送ajax请求')
       }
     })
@@ -158,7 +161,7 @@ class ProductAddUpdate extends Component {
   render() {
 
     const {isUpdate, product} = this
-    const {pCategoryId, categoryId, imgs} = product
+    const {pCategoryId, categoryId, imgs, detail} = product
     // 用来接收级联分类ID的数组
     const categoryIds = []
     if(isUpdate) {
@@ -246,8 +249,8 @@ class ProductAddUpdate extends Component {
           <Item label="商品图片">
             <PicturesWall ref={this.pw} imgs={imgs}/>
           </Item>
-          <Item label="商品详情">
-            <div>商品详情</div>
+          <Item label="商品详情" labelCol={{span: 2}} wrapperCol={{span: 20}}>
+            <RichTextEditor ref={this.editor} detail={detail}/>
           </Item>
           <Item>
             <Button type='primary' onClick={this.submit}>提交</Button>

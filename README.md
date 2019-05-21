@@ -375,6 +375,7 @@
         Cascader的基本使用
         异步获取一级分类列表, 生成一级分类options
         如果当前是更新二级分类的商品, 异步获取对应的二级分类列表, 生成二级分类options, 并添加为对应option的children
+        async函数返回值是一个新promise对象, promise的结果和值由async函数的结果决定
         当选择某个一级分类项时, 异步获取对应的二级分类列表, 生成二级分类options, 并添加为当前option的children
     
     3). 表单数据收集与表单验证
@@ -392,7 +393,7 @@
         当文件状态变为删除时, 调用删除图片的接口删除上传到后台的图片
     4). 父组件调用子组件对象的方法: 使用ref技术
         1. 创建ref容器: thi.pw = React.createRef()
-        2. 将ref容器交给需要获取的标签元素: <PictureWall ref={this.pw} />
+        2. 将ref容器交给需要获取的标签元素: <PicturesWall ref={this.pw} />  // 自动将将标签对象添加为pw对象的current属性
         3. 通过ref容器读取标签元素: this.pw.current
 
 
