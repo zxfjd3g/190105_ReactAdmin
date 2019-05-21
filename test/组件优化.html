@@ -18,7 +18,8 @@
 
   /*
     Component
-      只要调用setState(), 必然重新render(), 即使状态数据没有改变
+      1). 父组件重新render(), 当前component也重新render()
+      2). 只要调用setState(), 即使状态数据没有改变, 也会重新render()
     PureComponent
       调用setState(), render()可能不会调用, 内部会进行状态数据的浅比较, 只要有一个发生了变化, 重新render()
     面试题:

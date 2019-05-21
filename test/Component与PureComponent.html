@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>04_component_state</title>
+</head>
+<body>
+
+<div id="example"></div>
+
+<script type="text/javascript" src="../js/react.development.js"></script>
+<script type="text/javascript" src="../js/react-dom.development.js"></script>
+<script type="text/javascript" src="../js/babel.min.js"></script>
+
+<script type="text/babel">
+
+  class A extends React.Component {
+
+    state = {
+      m1: 1
+    }
+
+    test1 = () => {
+      this.setState(state => ({
+        m1: state.m1 + 1
+      }))
+    }
+
+    render() {
+      console.log('A render()')
+      return (
+        <div>
+          <h1>A组件</h1>
+          {this.state.m1}<button onClick={this.test1}>A 测试1</button>
+          <B/>
+          <C/>
+        </div>
+      )
+    }
+  }
+
+  class B extends React.Component {
+
+    state = {
+      m2: 1
+    }
+
+    test2 = () => {
+      this.setState({})
+    }
+
+    componentShouldUpdate () {
+
+    }
+
+    render() {
+      console.log('B render()')
+      return (
+        <div>
+          <h2>B组件</h2>
+          {this.state.m2}<button onClick={this.test2}>B 测试2</button>
+        </div>
+      )
+    }
+  }
+  class C extends React.PureComponent {
+
+    state = {
+      m3: 1
+    }
+
+    test3 = () => {
+      this.setState({})
+    }
+
+    render() {
+      console.log('C render()')
+      return (
+        <div>
+          <h2>C组件</h2>
+          {this.state.m3}<button onClick={this.test2}>C 测试3</button>
+        </div>
+      )
+    }
+  }
+
+  ReactDOM.render(<A/>, document.getElementById('example'))
+</script>
+</body>
+</html>
+

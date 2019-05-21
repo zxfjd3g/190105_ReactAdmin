@@ -68,6 +68,11 @@ export const reqAddOrUpdateProduct = (product) => ajax(BASE + '/manage/product/'
 // export const reqUpdateProduct = (product) => ajax(BASE + '/manage/product/update', product, 'POST')
 
 
+// 获取所有角色的列表
+export const reqRoles = () => ajax(BASE + '/manage/role/list')
+// 添加角色
+export const reqAddRole = (roleName) => ajax(BASE + '/manage/role/add', {roleName}, 'POST')
+
 /*
 json请求的接口请求函数
  */
