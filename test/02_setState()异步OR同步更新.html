@@ -37,6 +37,80 @@
       count: 0,
     }
 
+    /*
+     react事件监听回调中, setState()是异步更新状态
+     */
+    update1 = () => {
+      console.log('update1 setState()之前', this.state.count)
+      this.setState(state => ({count: state.count + 1}))
+      console.log('update1 setState()之后', this.state.count)
+    }
+
+    /*
+     react生命周期勾子中, setState()是异步更新状态
+     */
+    componentDidMount () {
+      console.log('componentDidMount setState()之前', this.state.count)
+      this.setState(state => ({count: state.count + 1}))
+      console.log('componentDidMount setState()之后', this.state.count)
+    }
+
+    /*
+    定时器回调 / 原生事件监听回调 / promise回调 /...
+     */
+    update2 = () => {
+      setTimeout(() => {
+        console.log('setTimeout setState()之前', this.state.count)
+        this.setState(state => ({count: state.count + 1}))
+        console.log('setTimeout setState()之后', this.state.count)
+      })
+    }
+    update3 = () => {
+      const h2 = this.refs.count
+      h2.onclick = () => {
+        console.log('onclick setState()之前', this.state.count)
+        this.setState(state => ({count: state.count + 1}))
+        console.log('onclick setState()之后', this.state.count)
+      }
+    }
+    update4 = () => {
+      Promise.resolve().then(value => {
+        console.log('Promise setState()之前', this.state.count)
+        this.setState(state => ({count: state.count + 1}))
+        console.log('Promise setState()之后', this.state.count)
+      })
+    }
+
+
+    update5 = () => {
+      console.log('onclick setState()之前', this.state.count)
+      this.setState(state => ({count: state.count + 1}))
+      console.log('onclick setState()之后', this.state.count)
+      console.log('onclick setState()之前2', this.state.count)
+      this.setState(state => ({count: state.count + 1}))
+      console.log('onclick setState()之后2', this.state.count)
+    }
+
+    update6 = () => {
+      console.log('onclick setState()之前', this.state.count)
+      this.setState({count: this.state.count + 1})
+      console.log('onclick setState()之后', this.state.count)
+      console.log('onclick setState()之前2', this.state.count)
+      this.setState({count: this.state.count + 1})
+      console.log('onclick setState()之后2', this.state.count)
+    }
+
+    update7 = () => {
+      console.log('onclick setState()之前', this.state.count)
+      this.setState({count: this.state.count + 1})
+      console.log('onclick setState()之后', this.state.count)
+
+      console.log('onclick setState()之前2', this.state.count)
+      this.setState(state => ({count: state.count + 1}))
+      console.log('onclick setState()之后2', this.state.count)
+    }
+
+
     render() {
       const {count} = this.state
       console.log('render()', count)

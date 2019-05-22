@@ -36,6 +36,28 @@
       count: 1
     }
 
+    test1 = () => {
+      this.setState(state => ({count: state.count + 1}))
+      console.log('test1 setState()之后', this.state.count)
+    }
+
+    test2 = () => {
+      /*const count = this.state.count + 1
+      this.setState({
+        count
+      })*/
+      this.setState({
+        count: 3
+      })
+      console.log('test2 setState()之后', this.state.count)
+    }
+
+    test3 = () => {
+      this.setState(state => ({count: state.count + 1}), () => { // 在状态更新且界面更新之后回调
+        console.log('test3 setState callback()', this.state.count)
+      })
+    }
+
     render() {
       console.log('A render()')
       return (
