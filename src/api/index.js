@@ -18,10 +18,6 @@ export function reqLogin(username, password) {
 }*/
 export const reqLogin = (username, password) => ajax(BASE + '/login', {username, password}, 'POST')
 
-// 添加用户
-export const reqAddUser = (user) => ajax(BASE + '/manage/user/add', user, 'POST')
-
-
 // 获取一级/二级分类的列表
 export const reqCategorys = (parentId) => ajax(BASE + '/manage/category/list', {parentId})
 
@@ -74,6 +70,14 @@ export const reqRoles = () => ajax(BASE + '/manage/role/list')
 export const reqAddRole = (roleName) => ajax(BASE + '/manage/role/add', {roleName}, 'POST')
 // 添加角色
 export const reqUpdateRole = (role) => ajax(BASE + '/manage/role/update', role, 'POST')
+
+
+// 获取所有用户的列表
+export const reqUsers = () => ajax(BASE + '/manage/user/list')
+// 删除指定用户
+export const reqDeleteUser = (userId) => ajax(BASE + '/manage/user/delete', {userId}, 'POST')
+// 添加用户
+export const reqAddUser = (user) => ajax(BASE + '/manage/user/add', user, 'POST')
 
 /*
 json请求的接口请求函数
