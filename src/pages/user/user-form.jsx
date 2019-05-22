@@ -17,6 +17,7 @@ class UserForm extends PureComponent {
   static propTypes = {
     setForm: PropTypes.func.isRequired, // 用来传递form对象的函数
     roles: PropTypes.array.isRequired,
+    user: PropTypes.object
   }
 
   componentWillMount () {
@@ -25,7 +26,7 @@ class UserForm extends PureComponent {
 
   render() {
 
-    const {roles} = this.props
+    const {roles, user} = this.props
     const { getFieldDecorator } = this.props.form
     // 指定Item布局的配置对象
     const formItemLayout = {
@@ -38,25 +39,31 @@ class UserForm extends PureComponent {
         <Item label='用户名'>
           {
             getFieldDecorator('username', {
-              initialValue: '',
+              initialValue: user.username,
             })(
               <Input placeholder='请输入用户名'/>
             )
           }
         </Item>
-        <Item label='密码'>
-          {
-            getFieldDecorator('password', {
-              initialValue: '',
-            })(
-              <Input type='password' placeholder='请输入密码'/>
-            )
-          }
-        </Item>
+
+        {
+          user._id ? null : (
+            <Item label='密码'>
+              {
+                getFieldDecorator('password', {
+                  initialValue: user.password,
+                })(
+                  <Input type='password' placeholder='请输入密码'/>
+                )
+              }
+            </Item>
+          )
+        }
+
         <Item label='手机号'>
           {
             getFieldDecorator('phone', {
-              initialValue: '',
+              initialValue: user.phone,
             })(
               <Input placeholder='请输入手机号'/>
             )
@@ -65,7 +72,7 @@ class UserForm extends PureComponent {
         <Item label='邮箱'>
           {
             getFieldDecorator('email', {
-              initialValue: '',
+              initialValue: user.email,
             })(
               <Input placeholder='请输入邮箱'/>
             )
@@ -75,7 +82,7 @@ class UserForm extends PureComponent {
         <Item label='角色'>
           {
             getFieldDecorator('role_id', {
-              initialValue: '',
+              initialValue: user.role_id,
             })(
               <Select>
                 {
