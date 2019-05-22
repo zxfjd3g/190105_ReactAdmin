@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>04_component_state</title>
+</head>
+<body>
+
+<div id="example"></div>
+
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+
+<script type="text/babel">
+
+  /*
+  1. Component存在的问题?
+      1). 父组件重新render(), 当前组件也会重新执行render(), 即使没有任何变化
+      2). 当前组件setState(), 重新执行render(), 即使state没有任何变化
+
+  2. 解决Component存在的问题
+      1). 原因: 组件的componentShouldUpdate()默认返回true, 即使数据没有变化render()都会重新执行
+      2). 办法1: 重写shouldComponentUpdate(), 判断如果数据有变化返回true, 否则返回false
+      3). 办法2: 使用PureComponent代替Component
+      4). 说明: 一般都使用PureComponent来优化组件性能
+
+  3. PureComponent的基本原理
+      1). 重写实现shouldComponentUpdate()
+      2). 对组件的新/旧state和props中的数据进行浅比较, 如果都没有变化, 返回false, 否则返回true
+      3). 一旦componentShouldUpdate()返回false不再执行用于更新的render()
+   */
+
+  class A extends React.Component {
+
+    state = {
+      m1: 1
+    }
+
+    test1 = () => {
+      this.setState(state => ({
+        m1: state.m1 + 1
+      }))
+    }
+
+    render() {
+      console.log('A render()')
+      return (
+        <div>
+          <h1>A组件: {this.state.m1}</h1>
+          <button onClick={this.test1}>A 测试1</button>
+        </div>
+      )
+    }
+  }
+
+  ReactDOM.render(<A/>, document.getElementById('example'))
+</script>
+</body>
+</html>
+

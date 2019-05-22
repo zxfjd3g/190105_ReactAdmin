@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>04_component_state</title>
+  <title>03_setState()面试题</title>
 </head>
 <body>
 
@@ -23,21 +23,31 @@
       this.setState({count: this.state.count + 1})
       this.setState({count: this.state.count + 1})
       console.log(this.state.count)
+
       this.setState(state => ({count: state.count + 1}))
       this.setState(state => ({count: state.count + 1}))
       console.log(this.state.count)
 
       setTimeout(() => {
         this.setState({count: this.state.count + 1})
-        console.log(this.state.count)
+        console.log('timeout', this.state.count)
+
         this.setState({count: this.state.count + 1})
-        console.log(this.state.count)
+        console.log('timeout', this.state.count)
       }, 0)
+
+      Promise.resolve().then(value => {
+        this.setState({count: this.state.count + 1})
+        console.log('promise', this.state.count)
+
+        this.setState({count: this.state.count + 1})
+        console.log('promise', this.state.count)
+      })
     }
 
     render() {
       const count = this.state.count
-      console.log(count)
+      console.log('render', count)
       return (
         <div>
           <p>{count}</p>
@@ -46,7 +56,7 @@
     }
   }
 
-  ReactDOM.render(<StateTest/>, document.getElementById('example')) // 渲染组件标签, 内部会调用组件标签对象的render()虚拟DOM
+  ReactDOM.render(<StateTest/>, document.getElementById('example'))
 
 </script>
 </body>
