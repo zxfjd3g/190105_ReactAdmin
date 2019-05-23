@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>01_setState()的使用</title>
+</head>
+<body>
+
+<div id="example"></div>
+
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+<script src="https://cdn.bootcss.com/remarkable/1.7.1/remarkable.min.js"></script>
+
+<script type="text/babel">
+
+  /*
+  setState()更新状态的2种写法
+    1). setState(updater, [callback]),
+        updater为返回stateChange对象的函数: (state, props) => stateChange
+        接收的state和props被保证为最新的
+    2). setState(stateChange, [callback])
+        stateChange为对象,
+        callback是可选的回调函数, 在状态更新且界面更新后才执行
+    3). 总结:
+        对象方式是函数方式的简写方式
+            如果新状态不依赖于原状态 ===> 使用对象方式
+            如果新状态依赖于原状态 ===> 使用函数方式
+        如果需要在setState()后获取最新的状态数据, 在第二个callback函数中读取
+   */
+
+  class A extends React.Component {
+
+    state = {
+      count: 1
+    }
+
+    test1 = () => {
+      this.setState(state => ({count: state.count + 1}))
+      console.log('test1 setState()之后', this.state.count)
+    }
+
+    test2 = () => {
+      /*const count = this.state.count + 1
+      this.setState({
+        count
+      })*/
+      this.setState({
+        count: 3
+      })
+      console.log('test2 setState()之后', this.state.count)
+    }
+
+    test3 = () => {
+      this.setState(state => ({count: state.count + 1}), () => { // 在状态更新且界面更新之后回调
+        console.log('test3 setState callback()', this.state.count)
+      })
+    }
+
+    render() {
+      console.log('A render()')
+      return (
+        <div>
+          <h1>A组件: {this.state.count}</h1>
+          <button onClick={this.test1}>A 测试1</button>&nbsp;&nbsp;
+          <button onClick={this.test2}>A 测试2</button>&nbsp;&nbsp;
+          <button onClick={this.test3}>A 测试3</button>&nbsp;&nbsp;
+        </div>
+      )
+    }
+  }
+
+  ReactDOM.render(<A/>, document.getElementById('example'))
+</script>
+</body>
+</html>
+

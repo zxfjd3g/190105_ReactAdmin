@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>04_component_state</title>
+</head>
+<body>
+
+<div id="example"></div>
+
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+
+<script type="text/babel">
+
+  /*
+  1. Component存在的问题?
+      1). 父组件重新render(), 当前组件也会重新执行render(), 即使没有任何变化
+      2). 当前组件setState(), 重新执行render(), 即使state没有任何变化
+
+  2. 解决Component存在的问题
+      1). 原因: 组件的componentShouldUpdate()默认返回true, 即使数据没有变化render()都会重新执行
+      2). 办法1: 重写shouldComponentUpdate(), 判断如果数据有变化返回true, 否则返回false
+      3). 办法2: 使用PureComponent代替Component
+      4). 说明: 一般都使用PureComponent来优化组件性能
+
+  3. PureComponent的基本原理
+      1). 重写实现shouldComponentUpdate()
+      2). 对组件的新/旧state和props中的数据进行浅比较, 如果都没有变化, 返回false, 否则返回true
+      3). 一旦componentShouldUpdate()返回false不再执行用于更新的render()
+
+  4. 面试题:
+      组件的哪个生命周期勾子能实现组件优化?
+      PureComponent的原理?
+      区别Component与PureComponent?
+   */
+
+  class A extends React.Component {
+
+    state = {
+      m1: {count: 1}
+    }
+
+    test1 = () => {
+      /*this.setState(state => ({
+        m1: {count: state.m1.count + 1}
+      }))*/
+
+//      const m1 = this.state.m1
+//      m1.count = 2
+//      this.setState({m1})
+//      this.setState({m1: {...m1}})
+
+      this.setState({})
+    }
+
+    render() {
+      console.log('A render()')
+      return (
+        <div>
+          <h1>A组件: m1={this.state.m1.count}</h1>
+          <button onClick={this.test1}>A 测试1</button>
+          <B m1={this.state.m1}/>
+        </div>
+      )
+    }
+  }
+
+  class B extends React.PureComponent {
+
+    state = {
+      m2: 1
+    }
+
+    test2 = () => {
+      this.setState({})
+    }
+
+    /*
+    用来决定当前组件是否应该重新render(), 如果返回true, 就会去重新render(), 否则结束
+     */
+    /*shouldComponentUpdate (nextProps, nextState) {
+      console.log('shouldComponentUpdate()')
+      // 比较新旧props中的和state数据, 如果没有一个变化的返回false, 否则true
+      if(this.props.m1===nextProps.m1 && this.state.m2===nextState.m2) {
+        return false
+      } else {
+        return true
+      }
+
+      // return true  // Component中的默认为true
+    }*/
+
+    render() {
+      console.log('B render()')
+      return (
+        <div>
+          <h1>B组件: m2={this.state.m2}, m1.count={this.props.m1.count}</h1>
+          <button onClick={this.test2}>B 测试2</button>
+        </div>
+      )
+    }
+  }
+
+  ReactDOM.render(<A/>, document.getElementById('example'))
+</script>
+</body>
+</html>
+
