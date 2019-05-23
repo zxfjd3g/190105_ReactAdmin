@@ -189,7 +189,16 @@ export default class Role extends Component {
           dataSource={roles}
           columns={this.columns}
           pagination={{defaultPageSize: PAGE_SIZE}}
-          rowSelection={{type: 'radio', selectedRowKeys: [role._id]}}
+          rowSelection={{
+            type: 'radio',
+            selectedRowKeys: [role._id],
+            onSelect: (role) => { // 选择某个radio时回调
+              this.setState({
+                role
+              })
+            }
+
+          }}
           onRow={this.onRow}
         />
 
