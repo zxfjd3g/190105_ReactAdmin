@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>06_context使用</title>
+</head>
+<body>
+
+<div id="test"></div>
+
+<script type="text/javascript" src="./js/react.development.js"></script>
+<script type="text/javascript" src="./js/react-dom.development.js"></script>
+<script type="text/javascript" src="./js/prop-types.js"></script>
+<script type="text/javascript" src="./js/babel.min.js"></script>
+
+<script type="text/babel">
+  class A extends React.Component {
+
+    state = {
+      color: 'red'
+    }
+
+    /*
+    声明向后代组件传递的context中的数据
+   */
+    static childContextTypes = {
+      color: PropTypes.string
+    }
+
+    /*
+  给后代组件返回包含指定数据的context对象
+   */
+    getChildContext() {
+      return {color: this.state.color};
+    }
+
+    render () {
+      return (
+        <div>
+          <h2>A组件</h2>
+          <B />
+        </div>
+      )
+    }
+  }
+
+  class B extends React.Component {
+
+    constructor (props, context) {
+      super(props)
+
+      console.log('B', context.color)
+    }
+
+    render () {
+      return (
+        <div>
+          <h2>B组件: {this.context.color}</h2>
+          <C />
+        </div>
+      )
+    }
+  }
+
+  class C extends React.Component {
+
+    constructor (props, context) {
+      super(props)
+
+      console.log('C', context.color)
+    }
+
+    /*
+    声明接收context中的数据
+     */
+    static contextTypes = {
+      color: PropTypes.string
+    }
+
+    render () {
+      return (
+        <div>
+          <h2 style={{color: this.context.color}}>C组件</h2>
+        </div>
+      )
+    }
+  }
+
+  ReactDOM.render(<A />, document.getElementById('test'))
+</script>
+
+</body>
+</html>
+

@@ -5,9 +5,9 @@ import {combineReducers} from '../lib/redux'
 import {INCREMENT, DECREMENT} from './action-types'
 
 /*
-管理count状态数据的reducer
+管理count状态数据的reducer函数
  */
-function count(state=1, action) {
+function count(state=2, action) {
   console.log('count()', state, action)
   switch (action.type) {
     case INCREMENT:
