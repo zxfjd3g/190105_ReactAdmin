@@ -46,7 +46,7 @@ class Login extends Component {
           storageUtils.saveUser(user) // 保存到local中
 
           // 跳转到管理界面 (不需要再回退回到登陆)
-          this.props.history.replace('/')
+          this.props.history.replace('/home')
 
         } else { // 登陆失败
           // 提示错误信息
