@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
 import Counter from '../components/Counter'
-import {increment, decrement, incrementAsync} from '../redux/actions'
+import {increment, decrement} from '../redux/actions'
 
 // 指定向Counter传入哪些一般属性(属性值的来源就是store中的state)
 const mapStateToProps = (state) => ({count: state})
@@ -23,5 +23,5 @@ export default connect(
 
 export default connect(
   state => ({count: state}),
-  {increment, decrement, incrementAsync},
+  {increment, decrement},
 )(Counter)
