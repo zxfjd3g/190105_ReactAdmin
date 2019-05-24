@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Redirect, Route, Switch} from 'react-router-dom'
 import { Layout } from 'antd'
+import {connect} from 'react-redux'
 
-import memoryUtils from '../../utils/memoryUtils'
 import LeftNav from '../../components/left-nav'
 import Header from '../../components/header'
 import Home from '../home/home'
@@ -20,9 +20,9 @@ const { Footer, Sider, Content } = Layout
 /*
 后台管理的路由组件
  */
-export default class Admin extends Component {
+class Admin extends Component {
   render () {
-    const user = memoryUtils.user
+    const user = this.props.user
     // 如果内存没有存储user ==> 当前没有登陆
     if(!user || !user._id) {
       // 自动跳转到登陆(在render()中)
@@ -54,3 +54,8 @@ export default class Admin extends Component {
     )
   }
 }
+
+export default connect(
+  state => ({user: state.user}),
+  {}
+)(Admin)
