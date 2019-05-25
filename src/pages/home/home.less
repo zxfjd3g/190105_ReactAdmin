@@ -1,8 +1,36 @@
 .home {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  font-size: 30px;
+  padding: 24px;
+  background: #fff;
+  min-height: 850px;
+  .home-card {
+    float: left;
+  }
+  .home-content {
+    position: absolute;
+    top: 420px;
+    width: 76%;
+    border: 1px solid #e8e8e8;
+    .home-menu {
+      font-size: 20px;
+      span {
+        cursor: pointer;
+      }
+      .home-menu-active {
+        border-bottom: 2px solid #1DA57A;
+        color: #1DA57A;
+        padding: 0 0 16px 0;
+      }
+      .home-menu-visited {
+        margin-right: 40px;
+      }
+    }
+    .home-table-left {
+      float: left;
+      width: 60%;
+    }
+    .home-table-right {
+      float: right;
+      width: 330px;
+    }
+  }
 }
