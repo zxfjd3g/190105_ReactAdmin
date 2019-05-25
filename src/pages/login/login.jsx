@@ -5,7 +5,6 @@ import {
   Icon,
   Input,
   Button,
-  message
 } from 'antd'
 import {connect} from 'react-redux'
 
@@ -81,8 +80,6 @@ class Login extends Component {
     if(user && user._id) {
       return <Redirect to='/home'/>
     }
-
-    const errorMsg = this.props.user.errorMsg
 
     // 得到具强大功能的form对象
     const form = this.props.form

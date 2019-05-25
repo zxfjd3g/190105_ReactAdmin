@@ -546,14 +546,14 @@
 ## 1. 在项目中搭建redux整套环境
     1). store.js
     2). reducer.js
-    3). action.js
+    3). actions.js
     4). action-types.js
     5). index.js
     6). 在需要与redux进行状态数据通信(读/写)的UI组件包装生成容器组件
 
 ## 2. 通过redux管理头部标题headTitle数据
     1). action-types.js
-    2). actoin.js
+    2). actoins.js
     3). reducer.js
     4). 相关组件: 
         left-nav.js
