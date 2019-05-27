@@ -10,7 +10,7 @@ import moment from 'moment'
 
 import Line from './line'
 import Bar from './bar'
-import './index.less'
+import './home.less'
 
 const dateFormat = 'YYYY/MM/DD'
 const {RangePicker} = DatePicker

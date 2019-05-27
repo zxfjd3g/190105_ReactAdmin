@@ -606,3 +606,23 @@
             如果为对象, 遍历封装成包含n个dispatch方法的对象
             将包含n个dispatch方法的对象分别作为函数属性传入UI组件
         通过store绑定state变化的监听, 在回调函数中根据store中最新的state数据更新容器组件状态, 从而更新UI组件
+
+# day11
+## 1. 数据可视化
+    1). echarts(百度) ==> echarts-for-react
+    2). g2(阿里) ==> bizCharts
+    3). d3(国外)
+
+## 2. 前台404界面
+    <Redirect from='/' to='/home' exact/>
+    <Route component={NotFound}/>
+    
+## 3. 打包应用运行
+    1). 解决生产环境ajax跨域问题
+        使用nginx的反向代理解决(一般由后台配置)
+        CORS: 允许浏览器端跨域
+    2). BrowserRouter模式刷新404的问题
+        a. 问题: 刷新某个路由路径时, 会出现404的错误
+        b. 原因: 项目根路径后的path路径会被当作后台路由路径, 去请求对应的后台路由, 但没有
+        c. 解决: 使用自定义中间件去读取返回index页面展现
+    
