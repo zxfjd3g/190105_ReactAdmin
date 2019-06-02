@@ -10,6 +10,7 @@ import {formateDate} from "../../utils/dateUtils"
 import LinkButton from "../../components/link-button/index"
 import {reqDeleteUser, reqUsers, reqAddOrUpdateUser} from "../../api/index";
 import UserForm from './user-form'
+import {PAGE_SIZE} from "../../utils/constants"
 
 /*
 用户路由
@@ -164,7 +165,7 @@ export default class User extends Component {
           rowKey='_id'
           dataSource={users}
           columns={this.columns}
-          pagination={{defaultPageSize: 2}}
+          pagination={{defaultPageSize: PAGE_SIZE}}
         />
 
         <Modal
